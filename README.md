@@ -4,10 +4,10 @@
 <img src="./una.png" alt="logo una" width="30%" >
 
 # Alunos
-- Paulo Henrique Rosa Siqueira : 322123422
+- Paulo Henrique Rosa Siqueira: 322123422
 - Nícolas 
 - Bruno
 - Jonathan
 - Igor
-- Garcia
+- Lucas Garcia Ferreira: 32220501
 - Ian
