@@ -7,7 +7,7 @@
 - Paulo Henrique Rosa Siqueira: 322123422
 - Nícolas 
 - Bruno Eduardo Ramanery Ferreira: 322123429
-- Jonathan
+- Jonathan Chaves Assunção Aguiar: 322127504
 - Igor Rodrigues de Abreu: 32222348
 - Lucas Garcia Ferreira: 32220501
 - Ian
