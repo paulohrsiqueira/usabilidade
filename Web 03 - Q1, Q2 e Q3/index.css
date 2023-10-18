@@ -1,0 +1,33 @@
+#conteiner {
+     
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+       }
+
+    img {
+        text-align: center;
+        width: 400px;     
+        border: 1px solid red
+     }
+
+     #borda{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        width: min-content;
+        padding: 10px;
+        border: 1px solid greenyellow;
+
+     }
+
+
+     
+         
+    
+
+    
+ 
