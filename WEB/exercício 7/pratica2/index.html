@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="stryle.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+        <div class="input-fields">
+            <label for="weight">Peso (kg):</label>
+            <input type="text" id="weight" placeholder="Informe o peso em kg">
+
+            <label for="height">Altura (m):</label>
+            <input type="text" id="height" placeholder="Informe a altura em metros">
+        </div>
+
+        <button onclick="calculateIMC()">Calcular IMC</button>
+
+        <div id="result">
+            <p>Seu IMC é: <span id="imcValue"></span></p>
+            <p>Situação: <span id="imcStatus"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
