@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Preços</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+    <script>
+        function consultarPreco() {
+            var codigo = document.getElementById("codigo").value;
+            var resultado = document.getElementById("resultado");
+
+            var preco;
+
+            switch (codigo) {
+                case "1":
+                    preco = 99.99;
+                    break;
+                case "2":
+                    preco = 103.89;
+                    break;
+                case "3":
+                    preco = 49.98;
+                    break;
+                case "4":
+                    preco = 89.72;
+                    break;
+                case "5":
+                    preco = 97.35;
+                    break;
+                default:
+                    resultado.innerHTML = "Código de produto inválido.";
+                    return;
+            }
+
+            resultado.innerHTML = "O preço do produto é R$ " + preco.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Consulta de Preços</h1>
+    <label for="codigo">Código do Produto: </label>
+    <input type="text" id="codigo">
+    <button onclick="consultarPreco()">Consultar</button>
+    <p id="resultado"></p>
+</body>
+</html>
