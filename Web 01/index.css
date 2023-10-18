@@ -1,0 +1,11 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-left:10%;
+    padding-right:10%;
+}
+
+img {
+    text-align: center;
+    width:45%;
+    height:50%;
+}
