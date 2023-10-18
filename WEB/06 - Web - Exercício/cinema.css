@@ -1,0 +1,121 @@
+body {
+    background-color: #808080;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+main {
+    min-height: 68vh;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.filme {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: auto;
+}
+
+.filme h2{
+    color: #ffff;
+}
+
+
+
+.filme img {
+    max-width: 100%;
+    width:300px; 
+    height: 450px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.filme a:hover h2 {
+    color: #FF0000; 
+}
+
+.filme a:visited h2 {
+    color: #ffff; 
+}
+#header{
+    position: relative; 
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    height: 200px;
+}
+
+#header img{
+    
+    position: relative;
+    bottom:430px;
+}
+#footer {
+    
+        position: flex;
+        background-color: #333;
+        color: #fff;
+        bottom: auto;
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+      
+}
+
+#footer .nome{
+    font-weight: 600;
+    font-size:20px;
+    padding: 10px;
+}
+
+#footer .endereco{
+    padding-left:10px;
+    padding-bottom: 10px;
+}
+
+#footer .container{
+    padding-left:10px;
+}
+
+#footer .telefone{
+    padding-bottom:5px;
+}
+
+#footer .whatsapp{
+    padding-bottom:5px;
+}
+
+#footer .facebook{
+    color: #ffff;
+}
+
+.facebook .a {
+    text-decoration: none;
+}

@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #808080;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Estilo para a seção de informações do filme */
+.detalhes-filme {
+    margin-top:15px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.detalhes-filme h2 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.detalhes-filme ul {
+    list-style: none;
+}
+
+.detalhes-filme ul li {
+    margin-bottom: 5px;
+}
+
+/* Estilo para a seção de sinopse do filme */
+.sinopse-filme {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sinopse-filme h2 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.sinopse-filme p {
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: 350px; 
+}
+
+.capa-filme {
+    display: flex;
+    max-width: 100%;
+    width: 300px; /* Defina o tamanho desejado */
+    height: auto;
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* Cantos arredondados */
+    margin: 10px auto; /* Centralize horizontalmente e adicione espaço vertical */
+}
+
+.capa-filme img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Estilização de links */
+a {
+    color: #0074a3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.comprar-button {
+    display: inline-block;
+    background-color: #ee0e0e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.comprar-button:hover {
+    background-color: #670010;
+}
+
+.voltar-button {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    background-color: #ee0e0e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.voltar-button i {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+}
+
+.voltar-button:hover {
+    background-color: #670010;
+}
