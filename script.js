@@ -1,94 +1,216 @@
-var character = document.getElementById("character");
-var game = document.getElementById("game");
-var interval;
-var both = 0;
-var counter = 0;
-var currentBlocks = [];
+const canvas = document.querySelector("canvas")
+const ctx = canvas.getContext("2d")
 
-function moveLeft(){
-    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    if(left>0){
-        character.style.left = left - 3 + "px";
+const score = document.querySelector(".score--value")
+const finalScore = document.querySelector(".final-score > span")
+const menu = document.querySelector(".menu-screen")
+const buttonPlay = document.querySelector(".btn-play")
+
+const audio = new Audio("../assets/audio.mp3")
+
+const size = 30
+
+const initialPosition = { x: 270, y: 240 }
+
+let snake = [initialPosition]
+
+const incrementScore = () => {
+    score.innerText = +score.innerText + 10
+}
+
+const randomNumber = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min)
+}
+
+const randomPosition = () => {
+    const number = randomNumber(0, canvas.width - size)
+    return Math.round(number / 30) * 30
+}
+
+const randomColor = () => {
+    const red = randomNumber(0, 255)
+    const green = randomNumber(0, 255)
+    const blue = randomNumber(0, 255)
+
+    return `rgb(${red}, ${green}, ${blue})`
+}
+
+const food = {
+    x: randomPosition(),
+    y: randomPosition(),
+    color: randomColor()
+}
+
+let direction, loopId
+
+const drawFood = () => {
+    const { x, y, color } = food
+
+    ctx.shadowColor = color
+    ctx.shadowBlur = 6
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, size, size)
+    ctx.shadowBlur = 0
+}
+
+const drawSnake = () => {
+    ctx.fillStyle = "#ddd"
+
+    snake.forEach((position, index) => {
+        if (index == snake.length - 1) {
+            ctx.fillStyle = "white"
+        }
+
+        ctx.fillRect(position.x, position.y, size, size)
+    })
+}
+
+const moveSnake = () => {
+    if (!direction) return
+
+    const head = { x: snake[snake.length - 1].x, y: snake[snake.length - 1].y }
+
+    if (direction == "right") {
+        head.x += size
+    }
+
+    if (direction == "left") {
+        head.x -= size
+    }
+
+    if (direction == "down") {
+        head.y += size
+    }
+
+    if (direction == "up") {
+        head.y -= size
+    }
+
+    // Verificando se a cobra ultrapassou as bordas, e ajustando sua posição
+    const canvasLimit = canvas.width
+    if (head.x >= canvasLimit) {
+        head.x = 0
+    } else if (head.x < 0) {
+        head.x = canvasLimit - size
+    }
+
+    if (head.y >= canvasLimit) {
+        head.y = 0
+    } else if (head.y < 0) {
+        head.y = canvasLimit - size
+    }
+
+    // Adicionando a nova posição da cabeça ao final da cobra
+    snake.push(head)
+
+    // Removendo a última parte da cobra para manter o tamanho constante
+    snake.shift()
+}
+
+const drawGrid = () => {
+    ctx.lineWidth = 1
+    ctx.strokeStyle = "#191919"
+
+    for (let i = 30; i < canvas.width; i += 30) {
+        ctx.beginPath()
+        ctx.lineTo(i, 0)
+        ctx.lineTo(i, 600)
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.lineTo(0, i)
+        ctx.lineTo(600, i)
+        ctx.stroke()
     }
 }
-function moveRight(){
-    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    if(left<380){
-        character.style.left = left + 3 + "px";
+
+const chackEat = () => {
+    const head = snake[snake.length - 1]
+
+    if (head.x == food.x && head.y == food.y) {
+        incrementScore()
+        snake.push(head)
+        audio.play()
+
+        let x = randomPosition()
+        let y = randomPosition()
+
+        while (snake.find((position) => position.x == x && position.y == y)) {
+            x = randomPosition()
+            y = randomPosition()
+        }
+
+        food.x = x
+        food.y = y
+        food.color = randomColor()
     }
 }
-document.addEventListener("keydown", event => {
-    if(both==0){
-        both++;
-        if(event.key==="ArrowLeft"){
-            interval = setInterval(moveLeft, 1);
-        }
-        if(event.key==="ArrowRight"){
-            interval = setInterval(moveRight, 1);
-        }
-    }
-});
-document.addEventListener("keyup", event => {
-    clearInterval(interval);
-    both=0;
-});
 
-var blocks = setInterval(function(){
-    var blockLast = document.getElementById("block"+(counter-1));
-    var holeLast = document.getElementById("hole"+(counter-1));
-    if(counter>0){
-        var blockLastTop = parseInt(window.getComputedStyle(blockLast).getPropertyValue("top"));
-        var holeLastTop = parseInt(window.getComputedStyle(holeLast).getPropertyValue("top"));
+const checkCollision = () => {
+    const head = snake[snake.length - 1]
+    const canvasLimit = canvas.width - size
+    const neckIndex = snake.length - 2
+
+    const wallCollision =
+        head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit
+
+    const selfCollision = snake.find((position, index) => {
+        return index < neckIndex && position.x == head.x && position.y == head.y
+    })
+
+    if (wallCollision || selfCollision) {
+        gameOver()
     }
-    if(blockLastTop<400||counter==0){
-        var block = document.createElement("div");
-        var hole = document.createElement("div");
-        block.setAttribute("class", "block");
-        hole.setAttribute("class", "hole");
-        block.setAttribute("id", "block"+counter);
-        hole.setAttribute("id", "hole"+counter);
-        block.style.top = blockLastTop + 100 + "px";
-        hole.style.top = holeLastTop + 100 + "px";
-        var random = Math.floor(Math.random() * 360);
-        hole.style.left = random + "px";
-        game.appendChild(block);
-        game.appendChild(hole);
-        currentBlocks.push(counter);
-        counter++;
+}
+
+const gameOver = () => {
+    direction = undefined
+
+    menu.style.display = "flex"
+    finalScore.innerText = score.innerText
+    canvas.style.filter = "blur(2px)"
+}
+
+const gameLoop = () => {
+    clearInterval(loopId)
+
+    ctx.clearRect(0, 0, 600, 600)
+    drawGrid()
+    drawFood()
+    moveSnake()
+    drawSnake()
+    chackEat()
+    checkCollision()
+
+    loopId = setTimeout(() => {
+        gameLoop()
+    }, 300)
+}
+
+gameLoop()
+
+document.addEventListener("keydown", ({ key }) => {
+    if (key == "ArrowRight" && direction != "left") {
+        direction = "right"
     }
-    var characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
-    var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    var drop = 0;
-    if(characterTop <= 0){
-        alert("Game over. Score: "+(counter-9));
-        clearInterval(blocks);
-        location.reload();
+
+    if (key == "ArrowLeft" && direction != "right") {
+        direction = "left"
     }
-    for(var i = 0; i < currentBlocks.length;i++){
-        let current = currentBlocks[i];
-        let iblock = document.getElementById("block"+current);
-        let ihole = document.getElementById("hole"+current);
-        let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue("top"));
-        let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue("left"));
-        iblock.style.top = iblockTop - 1 + "px";
-        ihole.style.top = iblockTop - 1 + "px";
-        if(iblockTop < -20){
-            currentBlocks.shift();
-            iblock.remove();
-            ihole.remove();
-        }
-        if(iblockTop-20<characterTop && iblockTop>characterTop){
-            drop++;
-            if(iholeLeft<=characterLeft && iholeLeft+20>=characterLeft){
-                drop = 0;
-            }
-        }
+
+    if (key == "ArrowDown" && direction != "up") {
+        direction = "down"
     }
-    if(drop==0){
-        if(characterTop < 480){
-            character.style.top = characterTop + 2 + "px";
-        }
-    }else{
-        character.style.top = characterTop - 0.5 + "px";
+
+    if (key == "ArrowUp" && direction != "down") {
+        direction = "up"
     }
-},1);
+})
+
+buttonPlay.addEventListener("click", () => {
+    score.innerText = "00"
+    menu.style.display = "none"
+    canvas.style.filter = "none"
+
+    snake = [initialPosition]
+})
