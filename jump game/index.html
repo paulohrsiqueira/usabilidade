@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        img.filtered-image {
+            mix-blend-mode: hard-light;
+            size: 450px 300px;
+            position: absolute;
+            top: 10px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+        }
+
+        .game {
+            position: relative;
+            width: 750px;
+            height: 200px;
+            border: 1px solid rgb(255, 255, 255);
+            margin: auto;
+            top: 40px; 
+        }
+
+        #character {
+            width: 20px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+        }
+
+        .obstacle {
+            width: 20px;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Jump Game</title>
+    <link rel="stylesheet" href="Estilo.css">
+</head>
+<body onkeypress="handleKeyPress(event)">
+    <img src="tumblr_d02c422ed7785f20d7005a838574413d_313a69fb_500.webp" class="filtered-image" alt="Minha imagem filtrada">
+    <div class="game">
+        <div id="character"></div>
+    </div>
+    <div id="scoreSpan">Pontuação: 0</div>
+</body>
+<script src="script.js"></script>
+</html>
